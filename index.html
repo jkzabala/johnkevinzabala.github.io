@@ -232,7 +232,27 @@
     .tiles.minimized .tile:hover i {
       transform: scale(1.1); /* ICON GROWS ON HOVER */
     }
-    
+    /* Active tile highlighting */
+    .tiles.minimized .tile.active {
+        background: linear-gradient(135deg, rgba(0, 204, 255, 0.3), rgba(0, 153, 204, 0.3));
+        border-color: rgba(0, 204, 255, 0.6);
+        box-shadow: 0 8px 25px rgba(0, 204, 255, 0.25);
+        transform: translateY(-2px) scale(1.02);
+    }
+    .tiles.minimized .tile.active i {
+        color: #ffffff;
+        text-shadow: 0 0 8px rgba(0, 204, 255, 0.8);
+    }
+    .tiles.minimized .tile.active span {
+        color: #ffffff;
+        font-weight: 700;
+    }
+    /* Persistent glow effect for active tile */
+    .tiles.minimized .tile.active::before {
+        left: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    }
+
     .tiles.minimized .tile span { 
       display: inline-block;
       font-weight: 600; /* BOLDER TEXT */
@@ -337,6 +357,96 @@
     /* game result modal */
     .game-result-modal { position: fixed; left: 46%; top: 50%; transform: translate(-50%,-50%); background: rgba(6,6,6,.98); padding: 2rem; border-radius: 12px; z-index: 1000; text-align: center; min-width: 750px; box-shadow: 0 30px 60px rgba(0,0,0,.6); }
     .game-result-modal h1 { font-size: 4.2rem; color: #00ff99; margin-bottom: .45rem }
+  /* EMERGENCY SCROLLING FIX - ADD THIS FIRST */
+html { height: 100%; overflow: hidden; }
+body { height: 100%; overflow: hidden; }
+
+/* =================================================
+   MOBILE & TABLET FIX - COPY THIS ENTIRE BLOCK
+   ================================================= */
+
+/* Tablet styles */
+@media (max-width: 768px) {
+    /* Make main title smaller */
+    header h1 { font-size: 2.2rem !important; margin-top: 2rem !important; }
+    
+    /* Fix tiles layout - 2 columns instead of 3 */
+    .tiles { 
+        left: 50% !important; 
+        grid-template-columns: repeat(2, 160px) !important; 
+        gap: 1rem !important; 
+        top: 9rem !important; 
+    }
+    .tile { width: 160px !important; height: 110px !important; font-size: 0.9rem !important; }
+    .tile i { font-size: 1.4rem !important; }
+    
+    /* Fix section content */
+    .section-content { 
+        width: 85vw !important; 
+        left: 50% !important; 
+        padding: 1.5rem !important; 
+        font-size: 1rem !important; 
+    }
+    
+    /* Fix name tag */
+    .name-tag { width: 200px !important; left: 0.5rem !important; }
+    .name-tag::after { font-size: 0.9rem !important; padding: 0.6rem !important; }
+    
+    /* Fix minimized menu */
+    .tiles.minimized { width: 200px !important; left: 0.5rem !important; }
+    .tiles.minimized .tile { height: 50px !important; font-size: 0.85rem !important; }
+    
+    /* Fix profile picture */
+    .profile-pic { width: 120px !important; height: 120px !important; right: 8px !important; }
+    
+    /* Fix services grid */
+    .services-grid { grid-template-columns: 1fr !important; }
+    
+    /* Fix game elements */
+    .game-result-modal { width: 85vw !important; min-width: unset !important; left: 50% !important; }
+    #answerInput { width: 90% !important; }
+}
+
+/* Phone styles */
+@media (max-width: 480px) {
+    /* Even smaller title */
+    header h1 { font-size: 1.8rem !important; margin-top: 1.5rem !important; }
+    
+    /* Stack tiles vertically */
+    .tiles { 
+        grid-template-columns: 1fr !important; 
+        width: 280px !important; 
+        top: 7rem !important; 
+    }
+    .tile { width: 280px !important; height: 90px !important; font-size: 0.85rem !important; }
+    
+    /* Full width content */
+    .section-content { 
+        width: 95vw !important; 
+        padding: 1rem !important; 
+        font-size: 0.95rem !important; 
+        top: 45% !important; 
+    }
+    .section-content h2 { font-size: 1.6rem !important; }
+    
+    /* Smaller name tag */
+    .name-tag { width: 160px !important; }
+    .name-tag::after { font-size: 0.75rem !important; }
+    
+    /* Smaller profile picture */
+    .profile-pic { width: 80px !important; height: 80px !important; }
+    
+    /* Fix minimized menu for phones */
+    .tiles.minimized { width: 160px !important; }
+    .tiles.minimized .tile { height: 45px !important; font-size: 0.8rem !important; }
+}
+
+/* Make buttons touch-friendly */
+button, .tile, .home-logo { 
+    touch-action: manipulation; 
+    -webkit-tap-highlight-color: transparent; 
+    min-height: 44px; 
+}
   </style>
 </head>
 <body>
@@ -1905,65 +2015,74 @@ document.querySelectorAll('.project-card').forEach(card => {
 
     // click handler for tiles - FASTER TRANSITION
     tiles.forEach((t) => t.addEventListener('click', (e) => {
-      const targetId = t.dataset.target;
+        const targetId = t.dataset.target;
 
-      // animate tiles out to the left - FASTER
-      tiles.forEach(x => { x.style.animation = 'none'; x.classList.add('slide-out-left'); });
+        // animate tiles out to the left - FASTER
+        tiles.forEach(x => { x.style.animation = 'none'; x.classList.add('slide-out-left'); });
 
-      // show cover photo and target section with REDUCED delay
-      coverPhoto.classList.add('show');
+        // show cover photo and target section with REDUCED delay
+        coverPhoto.classList.add('show');
 
-      setTimeout(() => {
-        sections.forEach(s => s.classList.remove('active'));
-        const target = document.getElementById(targetId);
-        if (target) target.classList.add('active');
+        setTimeout(() => {
+            sections.forEach(s => s.classList.remove('active'));
+            const target = document.getElementById(targetId);
+            if (target) target.classList.add('active');
 
-        // minimize tiles to left - CLEAR ANIMATIONS FIRST
-        tiles.forEach(tile => {
-          tile.style.animation = 'none';
-          tile.classList.remove('slide-out-left');
-        });
-        tilesContainer.classList.add('minimized');
+            // minimize tiles to left - CLEAR ANIMATIONS FIRST
+            tiles.forEach(tile => {
+                tile.style.animation = 'none';
+                tile.classList.remove('slide-out-left');
+                tile.classList.remove('active'); // Remove active class from all tiles
+            });
+            // Add active class to clicked tile
+            t.classList.add('active');
 
-        document.getElementById('welcome-text').style.display = 'none';
-        homeLogo.classList.add('show');
-        
-        // SHOW NAME TAG WHEN SIDE MENU APPEARS
-        document.querySelector('.name-tag').classList.add('show');
+            tilesContainer.classList.add('minimized');
+            
+            document.getElementById('welcome-text').style.display = 'none';
+            homeLogo.classList.add('show');
 
-        // hide video when section active
-        if (bgVideo) bgVideo.style.display = 'none';
+            // SHOW NAME TAG WHEN SIDE MENU APPEARS
+            document.querySelector('.name-tag').classList.add('show');
 
-        // if games, show start screen
-        if (targetId === 'games') {
-          document.getElementById('gameStart').style.display = 'block';
-          document.getElementById('gameArea').style.display = 'none';
-        }
-      }, 300); // REDUCED from 700ms to 300ms
+            // hide video when section active
+            if (bgVideo) bgVideo.style.display = 'none';
+
+            // if games, show start screen
+            if (targetId === 'games') {
+                document.getElementById('gameStart').style.display = 'block';
+                document.getElementById('gameArea').style.display = 'none';
+            }
+        }, 300); // REDUCED from 700ms to 300ms
     }));
+
 
     // home icon behavior
     homeLogo.addEventListener('click', () => {
-      coverPhoto.classList.remove('show');
-      sections.forEach(s => s.classList.remove('active'));
-      tilesContainer.classList.remove('minimized');
-      document.getElementById('welcome-text').style.display = 'block';
-      homeLogo.classList.remove('show');
-      
-      // HIDE NAME TAG WHEN RETURNING HOME
-      document.querySelector('.name-tag').classList.remove('show');
-      
-      if (bgVideo) bgVideo.style.display = 'block';
+        coverPhoto.classList.remove('show');
+        sections.forEach(s => s.classList.remove('active'));
+        tilesContainer.classList.remove('minimized');
+        document.getElementById('welcome-text').style.display = 'block';
+        homeLogo.classList.remove('show');
 
-      // re-run tile entrance animations
-      tiles.forEach((tile, idx) => {
-        tile.classList.remove('slide-out-left');
-        tile.style.animation = `${animMap[idx]} 1.6s ease both ${idx * 0.12}s`;
-      });
+        // HIDE NAME TAG WHEN RETURNING HOME
+        document.querySelector('.name-tag').classList.remove('show');
 
-      // stop any running game
-      stopGame();
+        // Remove active class from all tiles when returning home
+        tiles.forEach(tile => tile.classList.remove('active'));
+
+        if (bgVideo) bgVideo.style.display = 'block';
+
+        // re-run tile entrance animations
+        tiles.forEach((tile, idx) => {
+            tile.classList.remove('slide-out-left');
+            tile.style.animation = `${animMap[idx]} 1.6s ease both ${idx * 0.12}s`;
+        });
+
+        // stop any running game
+        stopGame();
     });
+
 
     /* ------------------ Guess-the-Logo Game ------------------ */
 const logos = [
