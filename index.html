@@ -362,90 +362,107 @@ html { height: 100%; overflow: hidden; }
 body { height: 100%; overflow: hidden; }
 
 /* =================================================
-   MOBILE & TABLET FIX - COPY THIS ENTIRE BLOCK
+   TARGETED MOBILE FIXES - COPY & PASTE THIS
    ================================================= */
 
-/* Tablet styles */
+/* Fix 1: Keep tiles in proper grid on mobile */
 @media (max-width: 768px) {
-    /* Make main title smaller */
-    header h1 { font-size: 2.2rem !important; margin-top: 2rem !important; }
-    
-    /* Fix tiles layout - 2 columns instead of 3 */
     .tiles { 
         left: 50% !important; 
-        grid-template-columns: repeat(2, 160px) !important; 
-        gap: 1rem !important; 
-        top: 9rem !important; 
+        top: 8rem !important;
+        grid-template-columns: repeat(2, 140px) !important; 
+        grid-template-rows: repeat(3, 100px) !important;
+        gap: 0.8rem !important; 
+        width: 300px !important;
+        height: auto !important;
     }
-    .tile { width: 160px !important; height: 110px !important; font-size: 0.9rem !important; }
-    .tile i { font-size: 1.4rem !important; }
-    
-    /* Fix section content */
-    .section-content { 
-        width: 85vw !important; 
-        left: 50% !important; 
-        padding: 1.5rem !important; 
-        font-size: 1rem !important; 
+    .tile { 
+        width: 140px !important; 
+        height: 100px !important; 
+        font-size: 0.8rem !important; 
     }
+    .tile i { font-size: 1.2rem !important; }
     
-    /* Fix name tag */
-    .name-tag { width: 200px !important; left: 0.5rem !important; }
-    .name-tag::after { font-size: 0.9rem !important; padding: 0.6rem !important; }
-    
-    /* Fix minimized menu */
-    .tiles.minimized { width: 200px !important; left: 0.5rem !important; }
-    .tiles.minimized .tile { height: 50px !important; font-size: 0.85rem !important; }
-    
-    /* Fix profile picture */
-    .profile-pic { width: 120px !important; height: 120px !important; right: 8px !important; }
-    
-    /* Fix services grid */
-    .services-grid { grid-template-columns: 1fr !important; }
-    
-    /* Fix game elements */
-    .game-result-modal { width: 85vw !important; min-width: unset !important; left: 50% !important; }
-    #answerInput { width: 90% !important; }
+    /* Make title smaller */
+    header h1 { font-size: 2rem !important; margin-top: 1.5rem !important; }
 }
 
-/* Phone styles */
 @media (max-width: 480px) {
-    /* Even smaller title */
-    header h1 { font-size: 1.8rem !important; margin-top: 1.5rem !important; }
-    
-    /* Stack tiles vertically */
     .tiles { 
-        grid-template-columns: 1fr !important; 
-        width: 280px !important; 
-        top: 7rem !important; 
+        grid-template-columns: repeat(2, 130px) !important;
+        width: 280px !important;
+        top: 7rem !important;
     }
-    .tile { width: 280px !important; height: 90px !important; font-size: 0.85rem !important; }
-    
-    /* Full width content */
-    .section-content { 
-        width: 95vw !important; 
-        padding: 1rem !important; 
-        font-size: 0.95rem !important; 
-        top: 45% !important; 
+    .tile { 
+        width: 130px !important; 
+        height: 90px !important; 
+        font-size: 0.75rem !important; 
     }
-    .section-content h2 { font-size: 1.6rem !important; }
-    
-    /* Smaller name tag */
-    .name-tag { width: 160px !important; }
-    .name-tag::after { font-size: 0.75rem !important; }
-    
-    /* Smaller profile picture */
-    .profile-pic { width: 80px !important; height: 80px !important; }
-    
-    /* Fix minimized menu for phones */
-    .tiles.minimized { width: 160px !important; }
-    .tiles.minimized .tile { height: 45px !important; font-size: 0.8rem !important; }
+    header h1 { font-size: 1.7rem !important; }
 }
 
-/* Make buttons touch-friendly */
-button, .tile, .home-logo { 
-    touch-action: manipulation; 
-    -webkit-tap-highlight-color: transparent; 
-    min-height: 44px; 
+/* Fix 2: Stop left menu from overlapping content */
+@media (max-width: 768px) {
+    .tiles.minimized {
+        display: none !important; /* Hide completely on mobile */
+    }
+    
+    /* Move home button to top right on mobile */
+    .home-logo {
+        right: 1rem !important;
+        top: 1rem !important;
+        left: auto !important;
+        bottom: auto !important;
+        width: 40px !important;
+        height: 40px !important;
+    }
+    
+    /* Give content full width when menu is hidden */
+    .section-content {
+        width: 90vw !important;
+        left: 50% !important;
+        padding: 1.5rem !important;
+    }
+}
+
+/* Fix 3: Video background on mobile */
+@media (max-width: 768px) {
+    video.corner-block {
+        object-fit: cover !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        position: fixed !important;
+    }
+}
+
+/* Fix 4: Profile picture adjustments */
+@media (max-width: 768px) {
+    .profile-pic {
+        width: 100px !important;
+        height: 100px !important;
+        right: 1rem !important;
+        bottom: 1rem !important;
+        top: auto !important;
+        transform: none !important;
+    }
+    
+    .profile-pic:hover {
+        transform: scale(1.05) !important;
+    }
+}
+
+/* Fix 5: Name tag mobile positioning */
+@media (max-width: 768px) {
+    .name-tag {
+        top: 0.5rem !important;
+        left: 0.5rem !important;
+        width: 180px !important;
+    }
+    
+    .name-tag::after {
+        font-size: 0.8rem !important;
+        padding: 0.5rem !important;
+    }
 }
   </style>
 </head>
