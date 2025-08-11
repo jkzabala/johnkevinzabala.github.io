@@ -19,7 +19,41 @@
 
     /* ---------- Header / Landing ---------- */
     header { height: 100vh; position: relative; overflow: hidden; }
-    header h1 { font-size: 2.6rem; text-align: center; margin-top: 5rem; z-index: 40; position: relative; }
+    header h1 {
+        font-size: 3.5rem;
+        text-align: center;
+        margin-top: 3rem;
+        z-index: 40;
+        position: relative;
+        background: linear-gradient(45deg, #00ccff, #ffffff, #00ccff);
+        background-size: 200% 200%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: gradientShift 3s ease-in-out infinite;
+        text-shadow: 0 0 30px rgba(0, 204, 255, 0.5);
+        overflow: hidden;
+        white-space: nowrap;
+        width: 0;
+        max-width: fit-content;
+        margin-left: auto;
+        margin-right: auto;
+        border-right: 3px solid #00ccff;
+        animation: 
+            typewriter 3s steps(19, end) 1s forwards,
+            blink 1s infinite 1s,
+            gradientShift 3s ease-in-out infinite 4.5s;
+    }
+    header::before {
+        content: '';
+        position: absolute;
+         top: 0;
+         left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(135deg, rgba(0, 0, 0, 0.3), rgba(0, 204, 255, 0.1));
+          z-index: 10;
+           pointer-events: none;
+    }
     
     /* SIMPLIFIED NAME TAG - NO GLOW, THICKER FONT, ONE LINE */
     .name-tag {
@@ -89,7 +123,9 @@
     .tile {
       width: 220px;
       height: 140px;
-      background: linear-gradient(180deg,#3b3b3b,#292929);
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
       color: #fff;
       display: flex;
       flex-direction: column;
@@ -105,7 +141,7 @@
       opacity: 0;
     }
 
-    .tile i { font-size: 1.8rem; margin-bottom: .35rem }
+    .tile i { font-size: 1.8rem; margin-bottom: .35rem; color: #00ccff; }
     .tile:hover { transform: translateY(-6px) scale(1.03); background: linear-gradient(180deg,#4a4a4a,#303030); }
 
     /* Entrance animations from corners (slower) */
@@ -115,6 +151,11 @@
     @keyframes slideInBottomLeft { from { transform: translate(-220%, 220%) scale(.98); opacity: 0 } to { transform: translate(0,0) scale(1); opacity: 1 } }
     @keyframes slideInBottomCenter { from { transform: translateY(220%) scale(.98); opacity: 0 } to { transform: translateY(0) scale(1); opacity: 1 } }
     @keyframes slideInBottomRight { from { transform: translate(220%, 220%) scale(.98); opacity: 0 } to { transform: translate(0,0) scale(1); opacity: 1 } }
+    @keyframes typewriter {
+        from { width: 0; }
+        to { width: 100%; }
+    }
+
 
     /* Exit animation to left - FASTER */
     @keyframes slideOutLeft { to { transform: translateX(-220%); opacity: 0 } }
@@ -308,8 +349,9 @@
 
   <!-- Header / Landing -->
   <header>
-    <div class="name-tag"></div>
-    <h1 id="welcome-text">Hi there! I'm Kevin</h1>
+    <canvas id="particles" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 15; pointer-events: none; background: transparent;"></canvas>
+        <div class="name-tag"></div>
+        <h1 id="welcome-text">Hi there! I'm Kevin</h1>
 
     <section class="tiles" id="tilesContainer" aria-label="Main sections">
       <div class="tile" data-target="about" aria-label="About tile"><i class="fas fa-user"></i><span>About Me</span></div>
@@ -572,104 +614,6 @@
 </style>
 </section>
 
-<style>
-/* Enhanced styling for the improved about section */
-#about .intro-hook {
-    background: linear-gradient(135deg, rgba(0, 191, 255, 0.1), rgba(0, 191, 255, 0.05));
-    padding: 1.5rem;
-    border-radius: 12px;
-    border-left: 4px solid #00bfff;
-    margin-bottom: 2rem;
-}
-
-#about .intro-hook p:first-child {
-    font-size: 1.2rem;
-    margin-bottom: 1rem;
-}
-
-#about h3 {
-    color: #00bfff;
-    font-size: 1.3rem;
-    margin: 2rem 0 1rem 0;
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid rgba(0, 191, 255, 0.3);
-}
-
-#about .specialty-list {
-    list-style: none;
-    padding: 0;
-    margin: 1rem 0;
-}
-
-#about .specialty-list li {
-    padding: 0.8rem 0;
-    padding-left: 1.5rem;
-    position: relative;
-    line-height: 1.6;
-}
-
-#about .specialty-list li::before {
-    content: "▶";
-    position: absolute;
-    left: 0;
-    color: #00bfff;
-    font-weight: bold;
-}
-
-#about .what-i-do,
-#about .my-approach,
-#about .results-focus {
-    margin-bottom: 2rem;
-}
-
-#about .results-focus p {
-    line-height: 2;
-    background: rgba(0, 0, 0, 0.2);
-    padding: 1.5rem;
-    border-radius: 8px;
-    border: 1px solid rgba(0, 191, 255, 0.2);
-}
-
-#about .cta-closing {
-    text-align: center;
-    margin-top: 2.5rem;
-    padding: 1.5rem;
-    background: linear-gradient(135deg, rgba(0, 191, 255, 0.15), rgba(0, 153, 204, 0.1));
-    border-radius: 12px;
-}
-
-#about .closing-statement {
-    font-size: 1.1rem;
-    color: #ffffff;
-}
-
-#about em {
-    color: #00bfff;
-    font-style: normal;
-    font-weight: 600;
-}
-
-#about strong {
-    color: #ffffff;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    #about .intro-hook {
-        padding: 1rem;
-    }
-    
-    #about .specialty-list li {
-        padding-left: 1.2rem;
-        font-size: 0.95rem;
-    }
-    
-    #about .results-focus p {
-        padding: 1rem;
-        line-height: 1.8;
-    }
-}
-</style>
 
   <section id="services" class="section-content" aria-hidden="true">
     <h2>Services</h2>
@@ -1768,11 +1712,7 @@ document.querySelectorAll('.project-card').forEach(card => {
     animation: fadeIn 0.8s ease 0.6s forwards;
 }
 
-@keyframes fadeIn {
-    to {
-        opacity: 1;
-    }
-}
+
 </style>
 
   <!-- GAMES: Guess the Logo -->
@@ -1811,7 +1751,7 @@ document.querySelectorAll('.project-card').forEach(card => {
     opacity: 0;
     animation: fadeIn 0.8s ease 0.2s forwards;
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 0.5rem;
 }
 
 .testimonials-grid {
@@ -1837,8 +1777,8 @@ document.querySelectorAll('.project-card').forEach(card => {
 }
 
 .client-photo {
-    width: 120px;
-    height: 120px;
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
     object-fit: cover;
     margin: 0 auto 1rem;
@@ -1858,11 +1798,6 @@ document.querySelectorAll('.project-card').forEach(card => {
     color: #fbf8f8;
 }
 
-@keyframes fadeIn {
-    to {
-        opacity: 1;
-    }
-}
 
 @media (max-width: 768px) {
     .testimonials-grid {
@@ -1881,13 +1816,13 @@ document.querySelectorAll('.project-card').forEach(card => {
     <div class="testimonials-grid">
         <div class="testimonial-card">
             <img src="client1-photo.jpg" alt="Client Photo" class="client-photo">
-            <p class="testimonial-text">"John delivered an automation that saved us 8 hours per week and improved our response time to high-value leads. His attention to detail and understanding of our workflow was exceptional."</p>
+            <p class="testimonial-text">"(This is a placeholder only) Kevin delivered an automation that saved us 8 hours per week and improved our response time to high-value leads. His attention to detail and understanding of our workflow was exceptional."</p>
             <div class="client-name">— Sarah Johnson, Marketing Director</div>
         </div>
         
         <div class="testimonial-card">
             <img src="client2-photo.jpg" alt="Client Photo" class="client-photo">
-            <p class="testimonial-text">"The dashboards John built made it easy for our leadership to make data-driven decisions. Clear communication, fast delivery, and reliable results every time."</p>
+            <p class="testimonial-text">"(This is a placeholder only) The dashboards Kevin built made it easy for our leadership to make data-driven decisions. Clear communication, fast delivery, and reliable results every time."</p>
             <div class="client-name">— Michael Chen, Operations Manager</div>
         </div>
     </div>
@@ -2181,6 +2116,52 @@ function endGame() {
 
 // Ensure game stops when returning home
 if (homeLogo) homeLogo.addEventListener('click', () => stopGame());
+
+// Simple particle effect
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
+const particles = [];
+
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+for (let i = 0; i < 50; i++) {
+    particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: Math.random() * 8 + 3,
+        speedX: (Math.random() - 0.5) * 1,
+        speedY: (Math.random() - 0.5) * 1,
+        opacity: Math.random() * 0.7 + 0.4
+    });
+}
+
+function animateParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    particles.forEach(particle => {
+        particle.x += particle.speedX;
+        particle.y += particle.speedY;
+        
+        if (particle.x > canvas.width) particle.x = 0;
+        if (particle.x < 0) particle.x = canvas.width;
+        if (particle.y > canvas.height) particle.y = 0;
+        if (particle.y < 0) particle.y = canvas.height;
+        
+        ctx.beginPath();
+        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(0, 204, 255, ${particle.opacity})`;
+        ctx.fill();
+    });
+    
+    requestAnimationFrame(animateParticles);
+}
+animateParticles();
+
   </script>
 
 </body>
