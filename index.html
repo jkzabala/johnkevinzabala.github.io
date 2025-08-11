@@ -402,40 +402,44 @@ body { height: 100%; overflow: hidden; }
 }
 
 
-/* Fix 2: Move minimized tiles below name tag on mobile */
+/* =================================================
+   MOBILE MENU FIX - COPY & PASTE THIS CSS
+   ================================================= */
+
+/* Fix 1: Move minimized tiles below name tag on mobile */
 @media (max-width: 768px) {
     .tiles.minimized {
         position: fixed !important;
-        top: 6rem !important; /* MOVED BELOW NAME TAG */
-        left: 0.5rem !important;
-        right: 0.5rem !important;
+        top: 4rem !important; /* MOVED CLOSER TO NAME TAG */
+        left: 0.8rem !important;
+        right: 0.8rem !important;
         width: auto !important;
         height: auto !important;
         display: flex !important;
         flex-direction: row !important;
         flex-wrap: wrap !important; /* ALLOW WRAPPING */
-        background: rgba(0, 0, 0, 0.95) !important;
-        backdrop-filter: blur(20px) !important;
-        padding: 0.8rem !important;
-        border-radius: 12px !important;
+        background: rgba(0, 0, 0, 0.9) !important;
+        backdrop-filter: blur(15px) !important;
+        padding: 0.5rem !important; /* REDUCED PADDING */
+        border-radius: 10px !important;
         border: 1px solid rgba(0, 204, 255, 0.3) !important;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5) !important;
+        box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4) !important;
         z-index: 300 !important;
-        gap: 0.5rem !important;
+        gap: 0.4rem !important;
         justify-content: center !important;
     }
     
     .tiles.minimized .tile {
-        min-width: 90px !important;
-        width: 90px !important;
-        height: 60px !important;
-        font-size: 0.7rem !important;
-        padding: 0.4rem !important;
+        min-width: 70px !important; /* SMALLER TILES */
+        width: 70px !important;
+        height: 50px !important; /* SHORTER HEIGHT */
+        font-size: 0.6rem !important;
+        padding: 0.3rem !important;
         margin: 0 !important;
         flex-shrink: 0 !important;
         background: rgba(60, 60, 60, 0.8) !important;
         border: 1px solid rgba(255, 255, 255, 0.08) !important;
-        border-radius: 10px !important;
+        border-radius: 8px !important;
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
@@ -444,47 +448,48 @@ body { height: 100%; overflow: hidden; }
     }
     
     .tiles.minimized .tile i {
-        font-size: 1rem !important;
-        margin-bottom: 0.2rem !important;
+        font-size: 0.9rem !important; /* SMALLER ICON */
+        margin-bottom: 0.1rem !important;
         margin-right: 0 !important;
         color: #00ccff !important;
     }
     
     .tiles.minimized .tile span {
-        font-size: 0.65rem !important;
+        font-size: 0.55rem !important; /* SMALLER TEXT */
         font-weight: 600 !important;
-        line-height: 1.1 !important;
+        line-height: 1 !important;
         display: block !important;
         text-align: center !important;
     }
     
-    /* Keep name tag in original top-left position */
+    /* Align name tag with home button */
     .name-tag {
-        top: 1rem !important;
-        left: 0.5rem !important;
-        width: 200px !important;
+        top: 1.2rem !important; /* MATCH HOME BUTTON HEIGHT */
+        left: 0.8rem !important; /* MATCH HOME BUTTON SPACING */
+        width: 180px !important; /* SLIGHTLY SMALLER */
         z-index: 350 !important;
     }
     
     .name-tag::after {
-        font-size: 0.75rem !important;
-        padding: 0.6rem 0.4rem !important;
-        letter-spacing: 0.08em !important;
+        font-size: 0.7rem !important;
+        padding: 0.5rem 0.3rem !important;
+        letter-spacing: 0.06em !important;
     }
     
-    /* Adjust content positioning to account for menu below name */
+    /* Push content further down to avoid overlap */
     .section-content {
-        top: 55% !important;
-        max-height: 60vh !important;
-        width: 92vw !important;
+        top: 60% !important; /* MOVED FURTHER DOWN */
+        max-height: 55vh !important; /* REDUCED HEIGHT */
+        width: 90vw !important;
         left: 50% !important;
-        padding: 1.2rem !important;
+        padding: 1rem !important;
+        margin-top: 1rem !important; /* EXTRA TOP MARGIN */
     }
     
-    /* Move home button to top right */
+    /* Home button positioning to align with name tag */
     .home-logo {
         right: 0.8rem !important;
-        top: 1.2rem !important;
+        top: 1.2rem !important; /* ALIGNED WITH NAME TAG */
         left: auto !important;
         bottom: auto !important;
         width: 40px !important;
