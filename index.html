@@ -401,83 +401,81 @@ body { height: 100%; overflow: hidden; }
     header h1 { font-size: 1.7rem !important; }
 }
 
-/* Fix 2: NEW MOBILE TOP TAB BAR */
+
+/* Fix 2: Move minimized tiles below name tag on mobile */
 @media (max-width: 768px) {
     .tiles.minimized {
         position: fixed !important;
-        top: 0 !important;
-        left: 0 !important;
-        right: 0 !important;
-        width: 100% !important;
+        top: 6rem !important; /* MOVED BELOW NAME TAG */
+        left: 0.5rem !important;
+        right: 0.5rem !important;
+        width: auto !important;
         height: auto !important;
         display: flex !important;
         flex-direction: row !important;
+        flex-wrap: wrap !important; /* ALLOW WRAPPING */
         background: rgba(0, 0, 0, 0.95) !important;
         backdrop-filter: blur(20px) !important;
-        padding: 0.4rem 0.2rem !important;
-        border-radius: 0 !important;
-        border: none !important;
-        border-bottom: 1px solid rgba(0, 204, 255, 0.3) !important;
-        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.5) !important;
-        overflow-x: auto !important;
-        overflow-y: hidden !important;
-        scroll-behavior: smooth !important;
-        z-index: 400 !important;
-        gap: 0.3rem !important;
+        padding: 0.8rem !important;
+        border-radius: 12px !important;
+        border: 1px solid rgba(0, 204, 255, 0.3) !important;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5) !important;
+        z-index: 300 !important;
+        gap: 0.5rem !important;
+        justify-content: center !important;
     }
     
     .tiles.minimized .tile {
-        min-width: 75px !important;
-        width: 75px !important;
-        height: 55px !important;
-        font-size: 0.65rem !important;
-        padding: 0.3rem !important;
+        min-width: 90px !important;
+        width: 90px !important;
+        height: 60px !important;
+        font-size: 0.7rem !important;
+        padding: 0.4rem !important;
         margin: 0 !important;
         flex-shrink: 0 !important;
         background: rgba(60, 60, 60, 0.8) !important;
         border: 1px solid rgba(255, 255, 255, 0.08) !important;
-        border-radius: 8px !important;
+        border-radius: 10px !important;
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
         justify-content: center !important;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
     }
     
     .tiles.minimized .tile i {
-        font-size: 0.9rem !important;
-        margin-bottom: 0.1rem !important;
+        font-size: 1rem !important;
+        margin-bottom: 0.2rem !important;
         margin-right: 0 !important;
         color: #00ccff !important;
     }
     
     .tiles.minimized .tile span {
-        font-size: 0.6rem !important;
+        font-size: 0.65rem !important;
         font-weight: 600 !important;
-        line-height: 1 !important;
+        line-height: 1.1 !important;
         display: block !important;
         text-align: center !important;
     }
     
-    /* Active tile styling for mobile */
-    .tiles.minimized .tile.active {
-        background: linear-gradient(135deg, rgba(0, 204, 255, 0.4), rgba(0, 153, 204, 0.4)) !important;
-        border-color: rgba(0, 204, 255, 0.8) !important;
-        transform: none !important;
+    /* Keep name tag in original top-left position */
+    .name-tag {
+        top: 1rem !important;
+        left: 0.5rem !important;
+        width: 200px !important;
+        z-index: 350 !important;
     }
     
-    .tiles.minimized .tile.active i {
-        color: #ffffff !important;
-        text-shadow: 0 0 8px rgba(0, 204, 255, 0.8) !important;
+    .name-tag::after {
+        font-size: 0.75rem !important;
+        padding: 0.6rem 0.4rem !important;
+        letter-spacing: 0.08em !important;
     }
     
-    .tiles.minimized .tile.active span {
-        color: #ffffff !important;
-    }
-    
-    /* Adjust content positioning to account for top tab bar */
+    /* Adjust content positioning to account for menu below name */
     .section-content {
         top: 55% !important;
-        max-height: 65vh !important;
+        max-height: 60vh !important;
         width: 92vw !important;
         left: 50% !important;
         padding: 1.2rem !important;
@@ -486,7 +484,7 @@ body { height: 100%; overflow: hidden; }
     /* Move home button to top right */
     .home-logo {
         right: 0.8rem !important;
-        top: 0.6rem !important;
+        top: 1.2rem !important;
         left: auto !important;
         bottom: auto !important;
         width: 40px !important;
@@ -579,7 +577,7 @@ body { height: 100%; overflow: hidden; }
     <h2>About Me</h2>
     
     <div class="intro-hook">
-        <p><strong>Hi, I'm John Kevin Zabala</strong> – your go-to tech virtual assistant who turns business chaos into streamlined success.</p>
+        <p><strong>Hi, I'm <em>John Kevin Zabala</em></strong> – your go-to tech virtual assistant who turns business chaos into streamlined success.</p>
         <p>I don't just manage processes; <em>I transform them</em>. After a decade of leading teams and scaling systems, I've discovered the secret to business growth isn't working harder – it's <em>working smarter</em>.</p>
     </div>
 
