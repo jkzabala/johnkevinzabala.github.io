@@ -406,23 +406,22 @@ body { height: 100%; overflow: hidden; }
 @media (max-width: 768px) {
     .tiles.minimized {
         position: fixed !important;
-        top: 4.5rem !important; /* MOVED CLOSER TO NAME TAG */
+        top: 4.5rem !important; /* MOVED DOWN FROM NAME TAG */
         left: 0.8rem !important;
         right: 0.8rem !important;
         width: auto !important;
         height: auto !important;
-        display: flex !important;
-        flex-direction: row !important;
-        flex-wrap: wrap !important; /* ALLOW WRAPPING */
+        display: grid !important; /* CHANGE TO GRID */
+        grid-template-columns: repeat(3, 1fr) !important; /* 3 COLUMNS */
+        grid-template-rows: repeat(2, auto) !important; /* 2 ROWS */
         background: rgba(0, 0, 0, 0.9) !important;
         backdrop-filter: blur(15px) !important;
-        padding: 0.5rem !important; /* REDUCED PADDING */
+        padding: 0.6rem !important;
         border-radius: 10px !important;
         border: 1px solid rgba(0, 204, 255, 0.3) !important;
         box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4) !important;
         z-index: 300 !important;
-        gap: 0.4rem !important;
-        justify-content: center !important;
+        gap: 0.5rem !important;
     }
     
     .tiles.minimized .tile {
@@ -460,7 +459,7 @@ body { height: 100%; overflow: hidden; }
     
     /* Align name tag with home button */
     .name-tag {
-        top: 0.6rem !important; /* MATCH HOME BUTTON HEIGHT */
+        top: 0.8rem !important; /* MATCH HOME BUTTON HEIGHT */
         left: 0.8rem !important; /* MATCH HOME BUTTON SPACING */
         width: 180px !important; /* SLIGHTLY SMALLER */
         z-index: 350 !important;
@@ -474,7 +473,7 @@ body { height: 100%; overflow: hidden; }
     
     /* Push content further down to avoid overlap */
     .section-content {
-        top: 60% !important; /* MOVED FURTHER DOWN */
+        top: 55% !important; /* MOVED FURTHER DOWN */
         max-height: 55vh !important; /* REDUCED HEIGHT */
         width: 90vw !important;
         left: 50% !important;
@@ -2276,7 +2275,6 @@ function endGame() {
   clearInterval(timer);
 
   // Hide all game-related content
-  if (progressBar) progressBar.style.display = 'none';  // Hide progress bar
   if (gameArea) gameArea.style.display = 'none';        // Hide game area
   if (feedback) feedback.textContent = '';              // Clear feedback
   
@@ -2342,7 +2340,10 @@ function stopGame() {
     if (gameArea) gameArea.style.display = 'none';
     if (gameStart) gameStart.style.display = 'block';
     if (feedback) feedback.textContent = '';
-    if (progressBar) progressBar.style.width = '0%';
+    if (progressBar) {
+        progressBar.style.width = '0%';
+        progressBar.style.display = 'block'; // Make sure it's visible for next game
+    }
     
     // Remove any existing result modal
     const existingModal = document.querySelector('.game-result-modal');
