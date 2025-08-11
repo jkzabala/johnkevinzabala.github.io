@@ -362,7 +362,7 @@ html { height: 100%; overflow: hidden; }
 body { height: 100%; overflow: hidden; }
 
 /* =================================================
-   TARGETED MOBILE FIXES - COPY & PASTE THIS
+   IMPROVED MOBILE FIXES - COPY & PASTE THIS
    ================================================= */
 
 /* Fix 1: Keep tiles in proper grid on mobile */
@@ -401,45 +401,118 @@ body { height: 100%; overflow: hidden; }
     header h1 { font-size: 1.7rem !important; }
 }
 
-/* Fix 2: Stop left menu from overlapping content */
+/* Fix 2: NEW MOBILE TOP TAB BAR */
 @media (max-width: 768px) {
     .tiles.minimized {
-        display: none !important; /* Hide completely on mobile */
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+        display: flex !important;
+        flex-direction: row !important;
+        background: rgba(0, 0, 0, 0.95) !important;
+        backdrop-filter: blur(20px) !important;
+        padding: 0.4rem 0.2rem !important;
+        border-radius: 0 !important;
+        border: none !important;
+        border-bottom: 1px solid rgba(0, 204, 255, 0.3) !important;
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.5) !important;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        scroll-behavior: smooth !important;
+        z-index: 400 !important;
+        gap: 0.3rem !important;
     }
     
-    /* Move home button to top right on mobile */
+    .tiles.minimized .tile {
+        min-width: 75px !important;
+        width: 75px !important;
+        height: 55px !important;
+        font-size: 0.65rem !important;
+        padding: 0.3rem !important;
+        margin: 0 !important;
+        flex-shrink: 0 !important;
+        background: rgba(60, 60, 60, 0.8) !important;
+        border: 1px solid rgba(255, 255, 255, 0.08) !important;
+        border-radius: 8px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+    
+    .tiles.minimized .tile i {
+        font-size: 0.9rem !important;
+        margin-bottom: 0.1rem !important;
+        margin-right: 0 !important;
+        color: #00ccff !important;
+    }
+    
+    .tiles.minimized .tile span {
+        font-size: 0.6rem !important;
+        font-weight: 600 !important;
+        line-height: 1 !important;
+        display: block !important;
+        text-align: center !important;
+    }
+    
+    /* Active tile styling for mobile */
+    .tiles.minimized .tile.active {
+        background: linear-gradient(135deg, rgba(0, 204, 255, 0.4), rgba(0, 153, 204, 0.4)) !important;
+        border-color: rgba(0, 204, 255, 0.8) !important;
+        transform: none !important;
+    }
+    
+    .tiles.minimized .tile.active i {
+        color: #ffffff !important;
+        text-shadow: 0 0 8px rgba(0, 204, 255, 0.8) !important;
+    }
+    
+    .tiles.minimized .tile.active span {
+        color: #ffffff !important;
+    }
+    
+    /* Adjust content positioning to account for top tab bar */
+    .section-content {
+        top: 55% !important;
+        max-height: 65vh !important;
+        width: 92vw !important;
+        left: 50% !important;
+        padding: 1.2rem !important;
+    }
+    
+    /* Move home button to top right */
     .home-logo {
-        right: 1rem !important;
-        top: 1rem !important;
+        right: 0.8rem !important;
+        top: 0.6rem !important;
         left: auto !important;
         bottom: auto !important;
         width: 40px !important;
         height: 40px !important;
-    }
-    
-    /* Give content full width when menu is hidden */
-    .section-content {
-        width: 90vw !important;
-        left: 50% !important;
-        padding: 1.5rem !important;
+        z-index: 450 !important;
     }
 }
 
-/* Fix 3: Video background on mobile */
+/* Fix 3: Video background on mobile with performance boost */
 @media (max-width: 768px) {
     video.corner-block {
         object-fit: cover !important;
         width: 100vw !important;
         height: 100vh !important;
         position: fixed !important;
+        will-change: transform !important;
+        backface-visibility: hidden !important;
+        transform: translateZ(0) !important;
     }
 }
 
 /* Fix 4: Profile picture adjustments */
 @media (max-width: 768px) {
     .profile-pic {
-        width: 100px !important;
-        height: 100px !important;
+        width: 80px !important;
+        height: 80px !important;
         right: 1rem !important;
         bottom: 1rem !important;
         top: auto !important;
@@ -451,17 +524,19 @@ body { height: 100%; overflow: hidden; }
     }
 }
 
-/* Fix 5: Name tag mobile positioning */
+/* Fix 5: Name tag mobile positioning - FIXED TEXT CUTOFF */
 @media (max-width: 768px) {
     .name-tag {
-        top: 0.5rem !important;
+        top: 4.2rem !important;
         left: 0.5rem !important;
-        width: 180px !important;
+        width: 220px !important;
+        z-index: 350 !important;
     }
     
     .name-tag::after {
-        font-size: 0.8rem !important;
-        padding: 0.5rem !important;
+        font-size: 0.7rem !important;
+        padding: 0.5rem 0.3rem !important;
+        letter-spacing: 0.05em !important;
     }
 }
   </style>
@@ -469,7 +544,7 @@ body { height: 100%; overflow: hidden; }
 <body>
 
   <!-- Background video (landing) -->
-  <video id="bgVideo" class="corner-block" autoplay loop muted playsinline>
+  <video id="bgVideo" class="corner-block" autoplay loop muted playsinline preload="auto" loading="eager">
     <source src="ai_crm_logos_loop.mp4" type="video/mp4">
     <!-- fallback -->
   </video>
@@ -2297,6 +2372,25 @@ function animateParticles() {
     requestAnimationFrame(animateParticles);
 }
 animateParticles();
+
+// Enhanced video loading for mobile
+const bgVideoEl = document.getElementById('bgVideo');
+if (bgVideoEl) {
+    const playVideo = () => {
+        bgVideoEl.play().catch(e => {
+            console.log('Video autoplay prevented:', e);
+            document.addEventListener('touchstart', () => {
+                bgVideoEl.play().catch(e => console.log('Manual video play failed:', e));
+            }, { once: true });
+        });
+    };
+    
+    if (bgVideoEl.readyState >= 2) {
+        playVideo();
+    } else {
+        bgVideoEl.addEventListener('loadeddata', playVideo);
+    }
+}
 
   </script>
 
