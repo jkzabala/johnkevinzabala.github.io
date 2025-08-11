@@ -402,11 +402,7 @@ body { height: 100%; overflow: hidden; }
 }
 
 
-/* =================================================
-   MOBILE MENU FIX - COPY & PASTE THIS CSS
-   ================================================= */
-
-/* Fix 1: Move minimized tiles below name tag on mobile */
+/* Fix 2: Move minimized tiles below name tag on mobile */
 @media (max-width: 768px) {
     .tiles.minimized {
         position: fixed !important;
@@ -2112,6 +2108,11 @@ document.querySelectorAll('.project-card').forEach(card => {
     tiles.forEach((t) => t.addEventListener('click', (e) => {
         const targetId = t.dataset.target;
 
+        // Stop game if user clicks away from games
+        if (targetId !== 'games') {
+            stopGame();
+        }
+
         // animate tiles out to the left - FASTER
         tiles.forEach(x => { x.style.animation = 'none'; x.classList.add('slide-out-left'); });
 
@@ -2326,6 +2327,26 @@ function endGame() {
       modal.remove();
     }
   });
+}
+
+// Add stopGame function
+function stopGame() {
+    clearInterval(timer);
+    gamePool = [];
+    gameSet = [];
+    qIndex = 0;
+    score = 0;
+    timeLeft = 10;
+    
+    // Hide game area and show start screen
+    if (gameArea) gameArea.style.display = 'none';
+    if (gameStart) gameStart.style.display = 'block';
+    if (feedback) feedback.textContent = '';
+    if (progressBar) progressBar.style.width = '0%';
+    
+    // Remove any existing result modal
+    const existingModal = document.querySelector('.game-result-modal');
+    if (existingModal) existingModal.remove();
 }
 
 // Ensure game stops when returning home
